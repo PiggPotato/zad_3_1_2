@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<style>
+    .table_price {
+        border-collapse: collapse;
+        border-left: 3px solid #F79361;
+        border-right: 3px solid #F79361;
+        border-bottom: 3px solid #F79361;
+        font-family: "Lucida Grande", sans-serif;
+    }
+
+
+    .table_price caption {
+        background: #F79361;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
+        color: white;
+        font-family: "Roboto Slab", serif;
+        font-style: normal;
+        font-size: 26px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .table_price td, .table_price th {
+        padding: 10px;
+    }
+
+    .table_price th {
+        text-align: left;
+        font-size: 18px;
+    }
+
+    .table_price tr:nth-child(2n) {
+        background: #E5E5E5;
+    }
+
+    .table_price td:last-of-type {
+        text-align: center;
+    }
+
+    .table_price a {
+        display: inline-block;
+        padding: 5px 10px;
+        margin-left: 5px;
+        background: #F79361;
+        box-shadow: 2px 2px 0 0 #a22800;
+        position: relative;
+    }
+
+    .table_price a:hover {
+        box-shadow: none;
+        top: 2px;
+        left: 2px;
+    }
+
+    .button {
+        font-family: "Lucida Grande", sans-serif;
+    }
+
+    .button a{
+        text-decoration: none;
+        color: #000;
+        display: inline-block;
+        padding: 5px 10px;
+        background: #F79361;
+        box-shadow: 2px 2px 0 0 #a22800;
+        position: center;
+    }
+
+    .button a:hover {
+        box-shadow: none;
+        top: 2px;
+        left: 2px;
+    }
+
+    .button a:active{
+        text-decoration: none;
+    }
+</style>
+<body>
+<div align="center">
+    <div class="button">
+        <a class="button" href="/users/new">Добавить нового пользователя</a>
+    </div>
+    <hr>
+    <table class="table_price">
+        <caption>USERS</caption>
+        <thead bgcolor="#f6a983">
+        <tr>
+            <td>ID</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>E-mail</td>
+            <td>Операции</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${user.getLast_name()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+
+            <td>
+                <form th:method="get" th:action="@{/users/{i}/edit(i=${user.getId()})}">
+                    <input type="submit" value="редактировать"/>
+                </form>
+                <form th:method="delete" th:action="@{/users/{i}(i=${user.getId()})}">
+                    <input type="submit" value="удалить"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
